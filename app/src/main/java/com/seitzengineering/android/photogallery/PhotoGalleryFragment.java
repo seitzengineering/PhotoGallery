@@ -1,17 +1,23 @@
 package com.seitzengineering.android.photogallery;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.IOException;
 
 /**
  * Created by Kevin on 3/23/2016.
  */
 public class PhotoGalleryFragment extends Fragment {
+
+    private static final String TAG = "PhotoGalleryFragment";
 
     private RecyclerView mPhotoRecyclerView;
 
@@ -23,6 +29,7 @@ public class PhotoGalleryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        new FetchItemsTask().execute();
     }
 
     @Override
@@ -32,5 +39,18 @@ public class PhotoGalleryFragment extends Fragment {
         mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
 
         return v;
+    }
+
+    private  class FetchItemsTask extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                String result = new FlickrFetchr().getUrlString("https://www.bignerdranch.com");
+                Log.i(TAG, "Fetched contents of URL: " + result);
+            } catch(IOException ioe) {
+                Log.e(TAG, "Failed to fetch URL: ", ioe);
+            }
+            return null;
+        }
     }
 }
