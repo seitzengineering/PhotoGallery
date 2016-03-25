@@ -15,9 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Kevin on 3/23/2016.
- */
 public class PhotoGalleryFragment extends Fragment {
 
     private static final String TAG = "PhotoGalleryFragment";
@@ -37,9 +34,11 @@ public class PhotoGalleryFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_photo_gallery, container, false);
-        mPhotoRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_photo_gallery_recycler_view);
+        mPhotoRecyclerView = (RecyclerView) v
+                .findViewById(R.id.fragment_photo_gallery_recycler_view);
         mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
 
         setupAdapter();
@@ -48,7 +47,7 @@ public class PhotoGalleryFragment extends Fragment {
     }
 
     private void setupAdapter() {
-        if(isAdded()) {
+        if (isAdded()) {
             mPhotoRecyclerView.setAdapter(new PhotoAdapter(mItems));
         }
     }
@@ -94,6 +93,7 @@ public class PhotoGalleryFragment extends Fragment {
     }
 
     private class FetchItemsTask extends AsyncTask<Void,Void,List<GalleryItem>> {
+
         @Override
         protected List<GalleryItem> doInBackground(Void... params) {
             return new FlickrFetchr().fetchItems();
@@ -104,5 +104,7 @@ public class PhotoGalleryFragment extends Fragment {
             mItems = items;
             setupAdapter();
         }
+
     }
+
 }

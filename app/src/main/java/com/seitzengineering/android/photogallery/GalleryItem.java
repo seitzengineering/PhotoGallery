@@ -1,18 +1,10 @@
 package com.seitzengineering.android.photogallery;
 
-/**
- * Created by Kevin on 3/23/2016.
- */
 public class GalleryItem {
-
     private String mCaption;
     private String mId;
     private String mUrl;
 
-    @Override
-    public String toString() {
-        return mCaption;
-    }
     public String getCaption() {
         return mCaption;
     }
@@ -35,5 +27,10 @@ public class GalleryItem {
 
     public void setUrl(String url) {
         mUrl = url;
+    }
+
+    @Override
+    public String toString() {
+        return mCaption;
     }
 }
